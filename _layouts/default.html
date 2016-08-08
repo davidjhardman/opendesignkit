@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-      {% if page.permalink %}
-        {% t page.title %}
+      {% capture page_title %}{% t page.title %}{% endcapture %}
+      {% if page_title %}
+        {{ page_title }}
       {% else %}
         {{ page.title }}
       {% endif %}
