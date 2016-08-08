@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | Open Design Kit</title>
+    <title>{% t page.title %} | Open Design Kit</title>
     <link
       rel="stylesheet"
       href="{{ "/css/styles.css" | prepend: site.baseurl_root }}"
@@ -19,14 +19,14 @@
                       Logo
                 </div>
                 <form class="site-search" role="search">
-                      <label for="search">Search</label>
-                      <input type="text" placeholder="Search" />
+                      <label for="search">{% t global.search %}</label>
+                      <input type="text" placeholder="{% t global.search %}" />
                       <input type="submit" />
                 </form>
                 <nav role="nav" class="site-nav">
                     <ul class="site-nav-list">
-                        <li class="site-nav-list-item"><a class="site-nav-list-link" href="/contribute">Contribute</a></li>
-                        <li class="site-nav-list-item"><a class="site-nav-list-link" href="/about">About</a></li>
+                        <li class="site-nav-list-item"><a class="site-nav-list-link" href="/contribute">{% t global.contribute %}</a></li>
+                        <li class="site-nav-list-item"><a class="site-nav-list-link" href="{% tl about %}">{% t global.about %}</a></li>
                     </ul>
                 </nav>
             </header>
@@ -41,10 +41,28 @@
             <img src="/img/bocoup.png" alt="">
           </picture>
 
-          <p>Bocoup maintains Open Design Kit as an open source tool. To share your feedback, open an  issue or a pull request on our <a href="https://github.com/bocoup/opendesignkit" target="_blank">Github repository</a>.</p>
+          {% tf footer-note.md %}
+        </div>
+        <div class="wrapper">
+          Available locales:
+          {% for lang in site.languages %}
+            {% capture lang_url %}{% if lang != site.default_lang %}{{ lang }}{% endif %}{% endcapture %}
+            <a href="/{{ lang_url | prepend: site.baseurl_root }}">{{ lang }}</a>
+          {% endfor %}
+        </div>
+
+        <div class="wrapper">
+          The same page in other locales:
+          {% for lang in site.languages %}
+            {% if lang != site.default_lang %}
+              <p>- {{ page['permalink_' + lang] }} // {{ lang }}</p>
+            {% else %}
+              <p>- {{ page['permalink'] }}</p>
+            {% endif %}
+          {% endfor %}
         </div>
       </footer>
-      <script src="/javascripts/tabs.js"></script>
+      <script src="{{ "/javascripts/tabs.js" | prepend: site.baseurl_root }}"></script>
       <script>
       document.addEventListener("DOMContentLoaded", function() {
           var myTabs = Frtabs();
