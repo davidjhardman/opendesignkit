@@ -4,7 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% t page.title %} | Open Design Kit</title>
+    <title>
+      {% if page.permalink %}
+        {% t page.title %}
+      {% else %}
+        {{ page.title }}
+      {% endif %}
+      | Open Design Kit
+    </title>
     <link
       rel="stylesheet"
       href="{{ "/css/styles.css" | prepend: site.baseurl_root }}"
@@ -48,17 +55,6 @@
           {% for lang in site.languages %}
             {% capture lang_url %}{% if lang != site.default_lang %}{{ lang }}{% endif %}{% endcapture %}
             <a href="/{{ lang_url | prepend: site.baseurl_root }}">{{ lang }}</a>
-          {% endfor %}
-        </div>
-
-        <div class="wrapper">
-          The same page in other locales:
-          {% for lang in site.languages %}
-            {% if lang != site.default_lang %}
-              <p>- {{ page['permalink_' + lang] }} // {{ lang }}</p>
-            {% else %}
-              <p>- {{ page['permalink'] }}</p>
-            {% endif %}
           {% endfor %}
         </div>
       </footer>
